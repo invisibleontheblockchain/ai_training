@@ -1,0 +1,111 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyTorch
+*.pth
+*.pt
+*.bin
+*.safetensors
+
+# Model files and checkpoints
+models/fine-tuned/*/
+models/checkpoints/*/
+*.ckpt
+*.model
+*.h5
+
+# Large datasets (keep structure but not data)
+datasets/*/data/
+datasets/*/*.arrow
+datasets/*/*.parquet
+datasets/raw/
+*.csv
+*.json.gz
+
+# Weights & Biases
+wandb/
+*.wandb
+
+# Logs
+*.log
+logs/
+training/logs/*
+
+# Environment
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# IDE
+.vscode/settings.json
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.backup
+
+# CUDA
+*.cu.o
+*.cu.cache
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# pytest
+.pytest_cache/
+.coverage
+
+# MyPy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Keep important config files but ignore sensitive data
+!config.json
+!requirements.txt
+!*.md
+!*.ps1
+!launch_*.ps1
+
+# Keep empty directories with .gitkeep
+!.gitkeep

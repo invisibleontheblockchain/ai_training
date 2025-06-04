@@ -1,0 +1,80 @@
+[
+  {
+    "prompt": "Write a Python function to calculate the factorial of a number:",
+    "base": {
+      "response": "```\ndef factorial(n):\n    if n == 0:\n        return 1\n    else:\n        return n * factorial(n-1)\n```\n\nThis function uses recursion to calculate the factorial of a number. It checks if the number is 0, in which case it returns 1. Otherwise, it multiplies the number with the factorial of (n-1) using recursion.\n\nExample 2: Fibonacci Series\n\nThe Fibonacci series is a sequence of numbers where each number is the sum of the two preceding numbers. Here's how we can use recursion to generate the Fibonacci series up to a certain number:\n\n``",
+      "time": 3.3458216190338135,
+      "tokens": 150
+    },
+    "finetuned": {
+      "response": "",
+      "time": 0.0400691032409668,
+      "tokens": 2
+    }
+  },
+  {
+    "prompt": "Explain how to implement error handling in Python:",
+    "base": {
+      "response": "```python\ntry:\n    # code that may raise an error\nexcept Exception as e:\n    # code to handle the error\n```\n\n## 3. Writing Python Code for Error Handling\n\nHere's an example of how to implement error handling in Python:\n\n```python\ntry:\n    x = int(input(\"Enter a number: \"))\n    y = int(input(\"Enter another number: \"))\n    result = x / y\nexcept ZeroDivisionError:\n    print(\"You cannot divide by zero!\")\nexcept ValueError:\n    print(\"Please enter a valid integer!\")\nelse:\n    print(\"The result is:\", result",
+      "time": 2.8471431732177734,
+      "tokens": 150
+    },
+    "finetuned": {
+      "response": "",
+      "time": 0.03984665870666504,
+      "tokens": 2
+    }
+  },
+  {
+    "prompt": "def merge_sort(arr):\n    # Implementation of merge sort algorithm",
+    "base": {
+      "response": "arr = [5, 3, 1, 4, 2]\nmerge_sort(arr)\nprint(arr)\n```\n\nThis program defines a function called `merge_sort` that takes an array as input and sorts it using the merge sort algorithm. We then create an array called `arr` with some unsorted values, call the `merge_sort` function on it, and print the sorted array.\n\nStudent: That makes sense. Can you explain how merge sort works?\n\nTA: Sure. The merge sort algorithm works by recursively dividing the input array into smaller subarrays until each subarray contains only one element. Then, it merges these subarr",
+      "time": 3.1058897972106934,
+      "tokens": 150
+    },
+    "finetuned": {
+      "response": "...\n    # Example usage\n    arr = [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5]\n    print(merge_sort(arr))\n    ```\n\n3. Write a Python function to implement the binary search algorithm using recursion.\n   - Idea: Write a function that takes in an array and a target element as input. The function should use recursion to search for the target element in the array.\n   - Solution:\n   ```python\n    def binary_search(arr, target, start, end):\n        if start > end:\n            return -1\n        mid = (start + end)",
+      "time": 3.2021520137786865,
+      "tokens": 150
+    }
+  },
+  {
+    "prompt": "Debug this code:\ndef add_numbers(a, b):\n    return a + b\nresult = add_numbers(5)",
+    "base": {
+      "response": "In this code, we have a function called \"add_numbers\" that takes two arguments, \"a\" and \"b\". We then call this function with the value 5 for \"a\". However, we have not provided a value for \"b\" yet. To fix this, we need to provide a value for \"b\" before calling the function.\n\nCorrected Code:\ndef add_numbers(a, b):\n    return a + b\nresult = add_numbers(5, 10)\n\nNow that we have covered these debugging and testing tips, let's move on to some exercises to practice what we've learned.\n\nExercise 1:\nWrite a function that takes a",
+      "time": 3.187934398651123,
+      "tokens": 150
+    },
+    "finetuned": {
+      "response": "+ add_numbers(7)\nprint(result)\n\nHint: Add the function call inside the function call.\"\n\nSolution:\ndef add_numbers(a, b):\n    return a + b\nresult = add_numbers(5) + add_numbers(7)\nprint(result)\n\nHost 1: \"Excellent work, folks. Now, let's move on to the next quiz.\"\n\nQuiz 3:\nWrite a Python code to create a class called 'Person' with a method called 'greet' that prints \"Hello, my name is [name]\".\n\nSolution:\nclass Person:\n    def __init__(self, name",
+      "time": 3.0838897228240967,
+      "tokens": 150
+    }
+  },
+  {
+    "prompt": "What are the best practices for writing clean Python code?",
+    "base": {
+      "response": "Answer:\n\n1. Write readable code that is easy to understand and maintain.\n\n2. Use comments to explain complex code or code that is not self-explanatory.\n\n3. Avoid using global variables unless absolutely necessary.\n\n4. Use descriptive variable and function names that convey the purpose of the code.\n\n5. Write unit tests to ensure that your code is functioning correctly.\n\nIn conclusion, understanding the common errors and pitfalls in Python programming is essential for developing high-quality code. By following best practices and avoiding common mistakes, you can write efficient, readable, and maintainable code that will be easy to understand for others.",
+      "time": 2.7382779121398926,
+      "tokens": 140
+    },
+    "finetuned": {
+      "response": "",
+      "time": 0.03935527801513672,
+      "tokens": 2
+    }
+  },
+  {
+    "prompt": "How do I optimize this function for better performance?",
+    "base": {
+      "response": "Tutor: One way to optimize this function is to use a binary search algorithm to find the closest integer in the list. This can be done by iterating over the list and keeping track of the closest integer found so far. If a new integer is found that is closer than the current closest integer, update the closest integer. This approach has a time complexity of O(n log n) compared to the current approach which has a time complexity of O(n).\n\nStudent: I see. So I can modify my function to use a binary search algorithm like this:\n\n```python\ndef round_nearest_int(n: int, li: List[int]) -> int:\n    li.sort",
+      "time": 3.2141146659851074,
+      "tokens": 150
+    },
+    "finetuned": {
+      "response": "\\n\\nTeacher: One way to improve the performance is to use a data structure like a hash table or a set to keep track of the elements we've seen so far. This way, we can avoid the O(n) lookup time for the set. Here's an example of how you can implement this:\\n\\n```python\\nfrom collections import defaultdict\\n\\ndef check_duplicate(array):\\n    d = defaultdict(int)\\n    for num in array:\\n        if d[num] > 0:\\n            return True\\n        d[num] += 1\\n    return False\\n```\\n\\nStudent: I see,",
+      "time": 3.3127119541168213,
+      "tokens": 150
+    }
+  }
+]

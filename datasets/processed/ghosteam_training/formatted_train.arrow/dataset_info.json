@@ -1,0 +1,50 @@
+{
+  "builder_name": "arrow",
+  "citation": "",
+  "config_name": "default",
+  "dataset_name": "arrow",
+  "dataset_size": 389260,
+  "description": "",
+  "download_checksums": {
+    "C:/AI_Training/datasets/processed/ghosteam_training/train/data-00000-of-00001.arrow": {
+      "num_bytes": 390024,
+      "checksum": null
+    }
+  },
+  "download_size": 390024,
+  "features": {
+    "instruction": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "input": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "output": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "text": {
+      "dtype": "string",
+      "_type": "Value"
+    }
+  },
+  "homepage": "",
+  "license": "",
+  "size_in_bytes": 779284,
+  "splits": {
+    "train": {
+      "name": "train",
+      "num_bytes": 389260,
+      "num_examples": 381,
+      "dataset_name": "arrow"
+    }
+  },
+  "version": {
+    "version_str": "0.0.0",
+    "major": 0,
+    "minor": 0,
+    "patch": 0
+  }
+}

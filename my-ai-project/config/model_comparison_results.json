@@ -1,0 +1,13 @@
+      "time": 3.3458216190338135,
+      "tokens": 150
+    },
+    "finetuned": {
+      "response": "",
+      "time": 0.0400691032409668,
+      "tokens": 2
+    }
+  },
+  {
+    "prompt": "Explain how to implement error handling in Python:",
+    "base": {
+      "response": "

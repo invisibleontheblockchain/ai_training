@@ -1,0 +1,132 @@
+{
+  "timestamp": "2025-06-04 12:10:43",
+  "models": {
+    "Phi-2-Enhanced": {
+      "model_name": "Phi-2-Enhanced",
+      "config": {
+        "enable_flash_attention": true,
+        "enable_torch_compile": true,
+        "use_system_prompts": true,
+        "max_new_tokens": 256,
+        "temperature": 0.7,
+        "batch_size": 1,
+        "num_runs": 3,
+        "warmup_runs": 1
+      },
+      "system_info": {
+        "cpu_percent": 0.9,
+        "memory_percent": 68.3,
+        "gpu_available": true,
+        "gpu_memory_used": 21187.0,
+        "gpu_memory_total": 24576.0,
+        "gpu_memory_percent": 86.21012369791666,
+        "gpu_temperature": 45.0,
+        "gpu_load": 8.0
+      },
+      "task_results": {
+        "coding": [
+          {
+            "rouge_l": 0.0349415577217373,
+            "response_time": 5.728142299999187,
+            "autonomy_score": 1.0,
+            "code_quality": 0.2833333333333333,
+            "reasoning_quality": 0.5,
+            "knowledge_accuracy": 0.5,
+            "overall_score": 0.42032164487768076,
+            "task_type": "coding",
+            "response_length": 525,
+            "question_count": 0
+          },
+          {
+            "rouge_l": 0.06484848484848485,
+            "response_time": 5.750425333333624,
+            "autonomy_score": 1.0,
+            "code_quality": 0.10000000000000002,
+            "reasoning_quality": 0.5,
+            "knowledge_accuracy": 0.5,
+            "overall_score": 0.35296969696969693,
+            "task_type": "coding",
+            "response_length": 900,
+            "question_count": 0
+          },
+          {
+            "rouge_l": 0.051014150387099,
+            "response_time": 5.715551500000099,
+            "autonomy_score": 0.9333333333333332,
+            "code_quality": 0.7000000000000001,
+            "reasoning_quality": 0.5,
+            "knowledge_accuracy": 0.5,
+            "overall_score": 0.5835361634107531,
+            "task_type": "coding",
+            "response_length": 972,
+            "question_count": 1
+          }
+        ],
+        "reasoning": [
+          {
+            "rouge_l": 0.1535983595609429,
+            "response_time": 4.7836351666665,
+            "autonomy_score": 0.8666666666666667,
+            "code_quality": 0.5,
+            "reasoning_quality": 0.5499999999999999,
+            "knowledge_accuracy": 0.5,
+            "overall_score": 0.5423863385788553,
+            "task_type": "reasoning",
+            "response_length": 412,
+            "question_count": 0
+          },
+          {
+            "rouge_l": 0.051384809195058216,
+            "response_time": 4.844012633332871,
+            "autonomy_score": 0.8666666666666667,
+            "code_quality": 0.5,
+            "reasoning_quality": 0.48333333333333334,
+            "knowledge_accuracy": 0.5,
+            "overall_score": 0.48861029517234505,
+            "task_type": "reasoning",
+            "response_length": 505,
+            "question_count": 0
+          }
+        ],
+        "knowledge": [
+          {
+            "rouge_l": 0.08038188573628276,
+            "response_time": 5.543224000000312,
+            "autonomy_score": 0.9333333333333332,
+            "code_quality": 0.5,
+            "reasoning_quality": 0.5,
+            "knowledge_accuracy": 0.7000000000000002,
+            "overall_score": 0.6094097104805899,
+            "task_type": "knowledge",
+            "response_length": 1383,
+            "question_count": 1
+          },
+          {
+            "rouge_l": 0.06568641712356771,
+            "response_time": 5.741934133332809,
+            "autonomy_score": 0.8666666666666667,
+            "code_quality": 0.5,
+            "reasoning_quality": 0.5,
+            "knowledge_accuracy": 0.6000000000000001,
+            "overall_score": 0.5498039500913802,
+            "task_type": "knowledge",
+            "response_length": 1265,
+            "question_count": 0
+          }
+        ]
+      },
+      "overall_metrics": {
+        "avg_overall_score": 0.5067196856544716,
+        "avg_response_time": 5.443846438095058,
+        "avg_autonomy_score": 0.9238095238095239,
+        "avg_rouge_l": 0.0716936663675961,
+        "avg_code_quality": 0.4404761904761905,
+        "avg_reasoning_quality": 0.5047619047619047,
+        "avg_knowledge_accuracy": 0.5428571428571429,
+        "total_tests": 7,
+        "autonomy_improvement": 0.42380952380952386
+      }
+    }
+  },
+  "comparison": {}
+}
