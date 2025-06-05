@@ -1,0 +1,11 @@
+{
+  "timestamp": "20250604_152137",
+  "model": "./models/fine-tuned/phi2-optimized",
+  "empty_rate": 0.0,
+  "too_short_rate": 0.0,
+  "pattern_match_rate": 20.0,
+  "avg_length": 282.8666666666667,
+  "avg_diversity": 0.9565820679011989,
+  "num_examples": 5,
+  "num_samples_per_example": 3
+}

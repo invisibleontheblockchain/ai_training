@@ -1,0 +1,9 @@
+{
+    "cline.apiProvider": "ollama",
+    "cline.ollamaModelId": "cline-optimal:latest",
+    "cline.ollamaBaseUrl": "http://localhost:11434",
+    "cline.maxContextWindow": 40000,
+    "cline.temperature": 0.2,
+    "cline.streamResponse": true,
+    "cline.customInstructions": "You are an expert developer. Always provide complete, production-ready code with proper error handling and types."
+}
