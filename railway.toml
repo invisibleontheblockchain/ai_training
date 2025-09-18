@@ -1,0 +1,19 @@
+[build]
+builder = "DOCKERFILE"
+dockerfilePath = "Dockerfile"
+
+[deploy]
+startCommand = "python start_agi_system.py"
+healthcheckPath = "/health"
+healthcheckTimeout = 100
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 3
+
+[[services]]
+name = "agi-system"
+source = "."
+
+[services.agi-system.env]
+PYTHONPATH = "/app"
+PYTHONUNBUFFERED = "1"
+RAILWAY_ENVIRONMENT = "production"
