@@ -21,4 +21,3 @@ aiohttp==3.9.1
 ollama==0.4.4
 websockets==11.0.3
 asyncio-mqtt==0.11.1
-httpx>=0.27.0,<0.28.0
