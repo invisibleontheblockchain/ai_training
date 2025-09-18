@@ -1,0 +1,15 @@
+{
+    "model_type": "random_forest",
+    "hyperparameters": {
+        "n_estimators": 100,
+        "max_depth": 10,
+        "random_state": 42
+    },
+    "features": [
+        "age",
+        "activity_score",
+        "engagement_rate",
+        "total_sessions"
+    ],
+    "target": "prediction_target"
+}

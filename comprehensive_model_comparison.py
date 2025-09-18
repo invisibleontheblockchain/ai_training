@@ -127,7 +127,7 @@ class ComprehensiveModelComparison:
         # Test suites for different complexity levels
         self.test_suites = self._create_test_suites()
         
-        logger.info("ComprehensiveModelComparison initialized")
+        logger.info("Starting Comprehensive Model Comparison")
     
     def _create_test_suites(self) -> Dict[str, List[Dict]]:
         """Create test suites with different complexity levels"""
@@ -260,7 +260,7 @@ class ComprehensiveModelComparison:
             )
             
             load_time = time.time() - start_time
-            logger.info(f"✓ Phi-2 model loaded in {load_time:.2f} seconds")
+            logger.info(f"OK: Phi-2 model loaded in {load_time:.2f} seconds")
             
             # Store setup metrics
             model_size_mb = sum(p.numel() * p.element_size() for p in self.phi2_model.parameters()) / (1024 * 1024)
@@ -284,7 +284,8 @@ class ComprehensiveModelComparison:
         try:
             # Check if Ollama is available
             result = ollama.list()
-            models = [model['name'] for model in result.get('models', [])]
+            # Unpack first element of the tuple to get the list of models
+            models = [model.model for model in result[0]]
             
             if self.config.cline_optimal_model not in models:
                 logger.error(f"Model {self.config.cline_optimal_model} not found in Ollama")
@@ -299,7 +300,7 @@ class ComprehensiveModelComparison:
             )
             setup_time = time.time() - start_time
             
-            logger.info(f"✓ Cline-optimal model ready in {setup_time:.2f} seconds")
+            logger.info(f"OK: Cline-optimal model ready in {setup_time:.2f} seconds")
             
             # Store setup metrics
             self.results["models"]["cline_optimal"] = {
@@ -392,10 +393,11 @@ class ComprehensiveModelComparison:
                 
                 self.results["models"]["phi2_finetuned"][suite_name].append(test_result)
                 
-                logger.info(f"    ✓ {response_time:.2f}s, {len(response)} chars, Quality: {quality_score:.2f}")
+                # Use ASCII-only for logging to avoid Unicode errors
+                logger.info(f"OK: {response_time:.2f}s, {len(response)} chars, Quality: {quality_score:.2f}")
                 
             except Exception as e:
-                logger.error(f"    ✗ Error: {str(e)}")
+                logger.error(f"    ERROR: {str(e)}")
                 # Record failed test
                 if "phi2_finetuned" not in self.results["models"]:
                     self.results["models"]["phi2_finetuned"] = {}
@@ -506,10 +508,11 @@ class ComprehensiveModelComparison:
                 
                 self.results["models"]["cline_optimal"][suite_name].append(test_result)
                 
-                logger.info(f"    ✓ {response_time:.2f}s, {len(response)} chars, Quality: {quality_score:.2f}")
+                # Use ASCII-only for logging to avoid Unicode errors
+                logger.info(f"OK: {response_time:.2f}s, {len(response)} chars, Quality: {quality_score:.2f}")
                 
             except Exception as e:
-                logger.error(f"    ✗ Error: {str(e)}")
+                logger.error(f"    ERROR: {str(e)}")
                 # Record failed test
                 if "cline_optimal" not in self.results["models"]:
                     self.results["models"]["cline_optimal"] = {}
@@ -695,7 +698,7 @@ class ComprehensiveModelComparison:
     
     def run_comprehensive_comparison(self, test_levels: List[str] = None) -> Dict:
         """Run the comprehensive comparison"""
-        logger.info("🚀 Starting Comprehensive Model Comparison")
+        logger.info("Starting Comprehensive Model Comparison")
         print("=" * 80)
         
         if test_levels is None:
@@ -719,7 +722,7 @@ class ComprehensiveModelComparison:
                 logger.warning(f"Test level '{level}' not found, skipping")
                 continue
                 
-            logger.info(f"\n🔍 Running {level.upper()} tests")
+            logger.info(f"Running {level.upper()} tests")
             print("-" * 60)
             
             test_suite = self.test_suites[level]
@@ -734,7 +737,7 @@ class ComprehensiveModelComparison:
                 comparison_results[f"cline_{level}"] = cline_metrics.__dict__
         
         # Run speed benchmarks
-        logger.info("\n⚡ Running speed benchmarks")
+        logger.info("Running speed benchmarks")
         print("-" * 60)
         
         if phi2_ready:
@@ -845,14 +848,14 @@ class ComprehensiveModelComparison:
             with open(filepath, 'w', encoding='utf-8') as f:
                 json.dump(self.results, f, indent=2, ensure_ascii=False)
             
-            logger.info(f"✅ Results saved to {filepath}")
+            logger.info(f"Results saved to {filepath}")
             
             # Also save a human-readable summary
             summary_file = filepath.replace('.json', '_summary.txt')
             with open(summary_file, 'w', encoding='utf-8') as f:
                 f.write(self._format_human_readable_summary())
             
-            logger.info(f"✅ Summary saved to {summary_file}")
+            logger.info(f"Summary saved to {summary_file}")
             
         except Exception as e:
             logger.error(f"Error saving results: {str(e)}")

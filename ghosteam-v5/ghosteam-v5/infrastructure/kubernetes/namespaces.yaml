@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ghosteam-v5
+  labels:
+    name: ghosteam-v5
+    app: ghosteam-v5
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ghosteam-v5-monitoring
+  labels:
+    name: ghosteam-v5-monitoring
+    app: ghosteam-v5

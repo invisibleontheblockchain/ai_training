@@ -1,0 +1,81 @@
+version: '3.8'
+
+services:
+  # PostgreSQL for MLflow backend and general data
+  postgres:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: ghosteam_v5
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Redis for caching and feature store
+  redis:
+    image: redis:7-alpine
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Ghosteam V5 API - Main application
+  api:
+    build: .
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      - DATABASE_URL=postgresql://postgres:password@postgres:5432/ghosteam_v5
+      - REDIS_URL=redis://redis:6379
+      - MLFLOW_TRACKING_URI=http://mlflow:5000
+      - SECRET_KEY=${SECRET_KEY:-default-secret-key}
+      - DEBUG=false
+      - ENVIRONMENT=production
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./src:/app/src
+      - ./data:/app/data
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8080/health" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    command: uvicorn src.serving.api.main:app --host 0.0.0.0 --port 8080 --workers 1
+
+  # MLflow for model tracking
+  mlflow:
+    image: ghcr.io/mlflow/mlflow:v2.8.0
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      - BACKEND_STORE_URI=postgresql://postgres:password@postgres:5432/ghosteam_v5
+      - DEFAULT_ARTIFACT_ROOT=./mlruns
+    ports:
+      - "5000:5000"
+    volumes:
+      - mlflow_data:/mlflow
+    command: mlflow server --host 0.0.0.0 --port 5000
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:5000/health" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+volumes:
+  postgres_data:
+  redis_data:
+  mlflow_data:

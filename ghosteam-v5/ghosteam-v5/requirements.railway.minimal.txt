@@ -1,0 +1,36 @@
+# Minimal Railway requirements - Guaranteed to work (v2)
+# Core API framework
+fastapi>=0.100.0
+uvicorn>=0.23.0
+python-multipart>=0.0.6
+
+# Data models and validation
+pydantic>=2.0.0
+pydantic-settings>=2.0.0
+
+# Database and caching
+psycopg2-binary>=2.9.0
+redis>=4.5.0
+
+# Essential ML packages
+pandas>=2.0.0
+numpy>=1.24.0
+scikit-learn>=1.3.0
+
+# MLflow for model management (essential) - Force installation
+mlflow>=2.8.0
+mlflow-skinny>=2.8.0
+
+# Environment and configuration
+python-dotenv>=1.0.0
+click>=8.1.0
+
+# Security
+passlib[bcrypt]>=1.7.4
+python-jose[cryptography]>=3.3.0
+
+# HTTP client
+httpx>=0.24.0
+
+# Logging
+structlog>=23.1.0

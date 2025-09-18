@@ -1,0 +1,32 @@
+pipeline:
+  name: "ghosteam_v5_pipeline"
+  version: "1.0.0"
+  description: "Default ML pipeline configuration"
+
+data_ingestion:
+  batch_size: 1000
+  schedule: "daily"
+  sources:
+    - "database"
+    - "api"
+    - "files"
+
+feature_engineering:
+  enabled: true
+  feature_store: "redis"
+  ttl_hours: 24
+
+model_training:
+  algorithm: "random_forest"
+  validation_split: 0.2
+  cross_validation_folds: 5
+
+monitoring:
+  drift_detection: true
+  performance_tracking: true
+  alerting: true
+
+deployment:
+  auto_deploy: true
+  canary_percentage: 10
+  rollback_on_failure: true

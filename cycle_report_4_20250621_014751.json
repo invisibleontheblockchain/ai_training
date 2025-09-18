@@ -1,0 +1,54 @@
+{
+  "cycle": 4,
+  "duration_minutes": 0.4933172,
+  "current_accuracy": 0.08055555555555555,
+  "target_accuracy": 0.95,
+  "progress_to_target": 8.47953216374269,
+  "improvement_streak": 0,
+  "no_improvement_count": 3,
+  "training_queue_size": 3,
+  "analysis": {
+    "current_score": 0.08055555555555555,
+    "success_rate": 0.0,
+    "needs_training": true,
+    "improvement": -0.005277777777777784,
+    "failure_analysis": {
+      "common_failures": {
+        "compilation_failure": 18
+      },
+      "improvement_areas": [
+        "Solidity syntax and compilation"
+      ]
+    },
+    "test_results": {
+      "session_summary": {
+        "session_id": "defi_learning_20250621_004604",
+        "duration_minutes": 61.771090566666665,
+        "total_tests": 18,
+        "successful_tests": 0,
+        "success_rate": 0.0,
+        "average_score": 0.08055555555555555,
+        "improvement_trend": -0.03222222222222221
+      },
+      "performance_breakdown": {
+        "compilation_rate": 0.0,
+        "security_score": 0.0,
+        "gas_efficiency": 0.0,
+        "overall_score": 0.08055555555555559
+      },
+      "learning_progress": {
+        "training_sessions": 0,
+        "improvement_rate": -0.014000000000000002,
+        "training_queue_size": 0
+      },
+      "failure_analysis": {
+        "common_failures": {
+          "compilation_failure": 18
+        },
+        "improvement_areas": [
+          "Solidity syntax and compilation"
+        ]
+      }
+    }
+  }
+}

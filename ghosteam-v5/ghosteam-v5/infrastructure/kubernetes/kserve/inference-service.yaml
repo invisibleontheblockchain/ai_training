@@ -1,0 +1,95 @@
+apiVersion: "serving.kserve.io/v1beta1"
+kind: "InferenceService"
+metadata:
+  name: "ghosteam-v5-model"
+  namespace: ghosteam-v5
+  annotations:
+    serving.kserve.io/deploymentMode: "Serverless"
+spec:
+  predictor:
+    model:
+      modelFormat:
+        name: sklearn
+      storageUri: "s3://ml-models/ghosteam-v5/model"
+      resources:
+        limits:
+          cpu: 1
+          memory: 2Gi
+        requests:
+          cpu: 100m
+          memory: 500Mi
+    minReplicas: 1
+    maxReplicas: 10
+    scaleTarget: 70
+    scaleMetric: concurrency
+  transformer:
+    containers:
+    - name: feature-transformer
+      image: ghosteam/feature-transformer:latest
+      env:
+      - name: FEAST_REPO_PATH
+        value: "/feast_repo"
+      - name: REDIS_URL
+        value: "redis://redis:6379"
+      - name: MLFLOW_TRACKING_URI
+        value: "http://mlflow-tracking-service:5000"
+      resources:
+        requests:
+          cpu: 100m
+          memory: 256Mi
+        limits:
+          cpu: 500m
+          memory: 512Mi
+      volumeMounts:
+      - name: feast-config
+        mountPath: /feast_repo
+    volumes:
+    - name: feast-config
+      configMap:
+        name: feast-config
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: feast-config
+  namespace: ghosteam-v5
+data:
+  feature_store.yaml: |
+    project: ghosteam_v5
+    registry: feast_registry.db
+    provider: local
+    online_store:
+      type: redis
+      connection_string: redis:6379
+    offline_store:
+      type: file
+---
+apiVersion: "serving.kserve.io/v1beta1"
+kind: "InferenceService"
+metadata:
+  name: "ghosteam-v5-ensemble"
+  namespace: ghosteam-v5
+spec:
+  predictor:
+    containers:
+    - name: ensemble-predictor
+      image: ghosteam/ensemble-predictor:latest
+      env:
+      - name: MODELS
+        value: "ghosteam-v5-model,ghosteam-v5-backup"
+      - name: ENSEMBLE_METHOD
+        value: "weighted_average"
+      - name: WEIGHTS
+        value: "0.7,0.3"
+      resources:
+        requests:
+          cpu: 200m
+          memory: 512Mi
+        limits:
+          cpu: 1
+          memory: 1Gi
+      ports:
+      - containerPort: 8080
+        protocol: TCP
+    minReplicas: 2
+    maxReplicas: 20

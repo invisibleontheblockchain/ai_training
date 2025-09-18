@@ -1,0 +1,35 @@
+[
+  {
+    "test_id": "validation_basic_erc20",
+    "prompt": "Generate Solidity smart contract code: Create a basic ERC20 token",
+    "expected_language": "solidity",
+    "expected_patterns": [
+      "pragma solidity",
+      "contract",
+      "function",
+      "mapping"
+    ]
+  },
+  {
+    "test_id": "validation_oracle",
+    "prompt": "Write a Solidity smart contract that implements a price oracle",
+    "expected_language": "solidity",
+    "expected_patterns": [
+      "pragma solidity",
+      "contract",
+      "function",
+      "onlyOwner"
+    ]
+  },
+  {
+    "test_id": "validation_lending",
+    "prompt": "Create a Solidity contract for a simple lending pool",
+    "expected_language": "solidity",
+    "expected_patterns": [
+      "pragma solidity",
+      "contract",
+      "deposit",
+      "borrow"
+    ]
+  }
+]

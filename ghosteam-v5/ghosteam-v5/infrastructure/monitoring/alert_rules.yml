@@ -1,0 +1,191 @@
+groups:
+  - name: ghosteam-v5-alerts
+    rules:
+      # Model Performance Alerts
+      - alert: ModelDriftDetected
+        expr: model_drift_score > 0.1
+        for: 5m
+        labels:
+          severity: warning
+          component: model
+        annotations:
+          summary: "Model drift detected for {{ $labels.model_name }}"
+          description: "Drift score: {{ $value }} exceeds threshold of 0.1"
+          runbook_url: "https://docs.ghosteam.com/runbooks/model-drift"
+
+      - alert: ModelAccuracyDrop
+        expr: model_accuracy < 0.85
+        for: 5m
+        labels:
+          severity: critical
+          component: model
+        annotations:
+          summary: "Model accuracy dropped below threshold"
+          description: "Model {{ $labels.model_name }} accuracy: {{ $value }}"
+          runbook_url: "https://docs.ghosteam.com/runbooks/model-accuracy"
+
+      - alert: HighModelLatency
+        expr: model_inference_latency_p95 > 100
+        for: 2m
+        labels:
+          severity: warning
+          component: serving
+        annotations:
+          summary: "High model inference latency"
+          description: "P95 latency: {{ $value }}ms for model {{ $labels.model_name }}"
+          runbook_url: "https://docs.ghosteam.com/runbooks/latency"
+
+      - alert: ModelErrorRateHigh
+        expr: rate(model_prediction_errors_total[5m]) > 0.05
+        for: 2m
+        labels:
+          severity: critical
+          component: serving
+        annotations:
+          summary: "High model prediction error rate"
+          description: "Error rate: {{ $value }} for model {{ $labels.model_name }}"
+
+      # Infrastructure Alerts
+      - alert: APIDown
+        expr: up{job="ghosteam-v5-api"} == 0
+        for: 1m
+        labels:
+          severity: critical
+          component: api
+        annotations:
+          summary: "Ghosteam V5 API is down"
+          description: "API service is not responding"
+
+      - alert: MLflowDown
+        expr: up{job="mlflow"} == 0
+        for: 1m
+        labels:
+          severity: warning
+          component: mlflow
+        annotations:
+          summary: "MLflow tracking server is down"
+          description: "MLflow service is not responding"
+
+      - alert: FeatureStoreDown
+        expr: up{job="feast"} == 0
+        for: 1m
+        labels:
+          severity: critical
+          component: feast
+        annotations:
+          summary: "Feature store is down"
+          description: "Feast feature server is not responding"
+
+      - alert: RedisDown
+        expr: up{job="redis"} == 0
+        for: 1m
+        labels:
+          severity: critical
+          component: redis
+        annotations:
+          summary: "Redis is down"
+          description: "Redis service is not responding"
+
+      - alert: PostgreSQLDown
+        expr: up{job="postgres"} == 0
+        for: 1m
+        labels:
+          severity: critical
+          component: postgres
+        annotations:
+          summary: "PostgreSQL is down"
+          description: "PostgreSQL service is not responding"
+
+      # Resource Alerts
+      - alert: HighCPUUsage
+        expr: rate(container_cpu_usage_seconds_total[5m]) * 100 > 80
+        for: 5m
+        labels:
+          severity: warning
+          component: infrastructure
+        annotations:
+          summary: "High CPU usage detected"
+          description: "CPU usage is {{ $value }}% for {{ $labels.pod }}"
+
+      - alert: HighMemoryUsage
+        expr: (container_memory_usage_bytes / container_spec_memory_limit_bytes) * 100 > 80
+        for: 5m
+        labels:
+          severity: warning
+          component: infrastructure
+        annotations:
+          summary: "High memory usage detected"
+          description: "Memory usage is {{ $value }}% for {{ $labels.pod }}"
+
+      - alert: DiskSpaceLow
+        expr: (node_filesystem_avail_bytes / node_filesystem_size_bytes) * 100 < 20
+        for: 5m
+        labels:
+          severity: warning
+          component: infrastructure
+        annotations:
+          summary: "Low disk space"
+          description: "Disk space is {{ $value }}% full on {{ $labels.instance }}"
+
+      # Data Quality Alerts
+      - alert: DataValidationFailure
+        expr: increase(data_validation_failures_total[5m]) > 0
+        for: 1m
+        labels:
+          severity: warning
+          component: data
+        annotations:
+          summary: "Data validation failure detected"
+          description: "{{ $value }} validation failures in the last 5 minutes"
+
+      - alert: FeatureMissing
+        expr: feature_availability < 0.95
+        for: 5m
+        labels:
+          severity: warning
+          component: features
+        annotations:
+          summary: "Feature availability below threshold"
+          description: "Feature {{ $labels.feature_name }} availability: {{ $value }}"
+
+      # Training Pipeline Alerts
+      - alert: TrainingJobFailed
+        expr: increase(training_job_failures_total[1h]) > 0
+        for: 1m
+        labels:
+          severity: warning
+          component: training
+        annotations:
+          summary: "Training job failed"
+          description: "Training job {{ $labels.job_name }} failed"
+
+      - alert: ModelRegistrationFailed
+        expr: increase(model_registration_failures_total[1h]) > 0
+        for: 1m
+        labels:
+          severity: warning
+          component: registry
+        annotations:
+          summary: "Model registration failed"
+          description: "Failed to register model {{ $labels.model_name }}"
+
+      # Business Metrics Alerts
+      - alert: PredictionVolumeDropped
+        expr: rate(model_predictions_total[5m]) < 0.5 * rate(model_predictions_total[1h] offset 1h)
+        for: 10m
+        labels:
+          severity: warning
+          component: business
+        annotations:
+          summary: "Prediction volume dropped significantly"
+          description: "Current prediction rate is 50% below historical average"
+
+      - alert: UnusualPredictionPattern
+        expr: stddev_over_time(rate(model_predictions_total[5m])[1h]) > 2 * avg_over_time(rate(model_predictions_total[5m])[1h])
+        for: 15m
+        labels:
+          severity: warning
+          component: business
+        annotations:
+          summary: "Unusual prediction pattern detected"
+          description: "Prediction volume shows unusual variance"

@@ -240,7 +240,7 @@ function Test-ModelThoroughly {
 # ==================== CREATE API ====================
 function Create-SimpleAPI {
     Write-Host "`nCreating simple API for cline-optimal..." -ForegroundColor Yellow
-    
+
     $apiCode = @'
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -280,7 +280,6 @@ async def chat(request: ChatRequest):
         messages=[{"role": "user", "content": request.text}],
         options={"temperature": request.temperature}
     )
-    
     return {
         "response": response["message"]["content"],
         "model": "cline-optimal:latest"
@@ -290,9 +289,9 @@ if __name__ == "__main__":
     print("Starting Cline-Optimal API on http://localhost:8001")
     uvicorn.run(app, host="0.0.0.0", port=8001)
 '@
-    
-    $apiCode | Out-File -FilePath "cline_optimal_api.py" -Encoding UTF8
-    Write-Host "✓ API created: cline_optimal_api.py" -ForegroundColor Green
+
+    $apiCode | Set-Content -Path "cline_optimal_api.py" -Encoding UTF8
+    Write-Host "API created: cline_optimal_api.py" -ForegroundColor Green
 }
 
 # ==================== VS CODE CONFIG ====================

@@ -1,0 +1,14 @@
+{
+  "name": "ghosteam-v5-mlops",
+  "description": "Autonomous MLOps System with Continuous Learning",
+  "services": {
+    "web": {
+      "build": {
+        "dockerfile": "Dockerfile.railway"
+      },
+      "deploy": {
+        "startCommand": "python -m uvicorn src.minimal_app:app --host 0.0.0.0 --port $PORT"
+      }
+    }
+  }
+}

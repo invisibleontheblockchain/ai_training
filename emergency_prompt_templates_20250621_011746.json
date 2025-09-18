@@ -1,0 +1,7 @@
+{
+  "solidity_prefix": "Generate Solidity smart contract code:",
+  "language_specification": "Language: Solidity",
+  "contract_requirement": "Create a Solidity smart contract that",
+  "negative_examples": "DO NOT generate Python code. This should be Solidity.",
+  "format_requirement": "Start with pragma solidity ^0.8.0; and include proper contract structure"
+}

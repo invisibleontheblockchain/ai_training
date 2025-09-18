@@ -1,0 +1,114 @@
+DeFi Complex Task Test Results
+Timestamp: 2025-06-20T23:53:03.829767
+Response Time: 8.94s
+Overall Score: 0.50
+Performance Level: ⚠️ FAIR - Significant Gaps
+
+Quality Indicators:
+  Solidity contracts: 0
+  Security patterns: 0
+  DeFi protocols mentioned: 5
+  Integration patterns: 1
+  Frontend mentions: 0
+  Deployment scripts: 0
+  Questions asked: 0
+
+================================================================================
+FULL RESPONSE:
+================================================================================
+```python
+# This is a simplified version of what you're asking for, but it's not possible to provide a complete DeFi suite with all protocols in this format. I will provide the basic structure for each protocol.
+
+# Oracle Protocol
+import requests
+
+class Oracle:
+    def __init__(self):
+        self.price_feeds = {}
+
+    def add_price_feed(self, token: str, url: str):
+        self.price_feeds[token] = url
+
+    def get_price(self, token: str) -> float:
+        response = requests.get(self.price_feeds[token])
+        return response.json()['price']
+
+# DEX Protocol
+class DEX:
+    def __init__(self):
+        self.liquidity_pools = {}
+        self.routers = []
+
+    def add_liquidity_pool(self, token_a: str, token_b: str, reserve_a: float, reserve_b: float):
+        self.liquidity_pools[(token_a, token_b)] = (reserve_a, reserve_b)
+
+    def route_trade(self, token_in: str, amount_in: float) -> float:
+        for router in self.routers:
+            if router.can_route(token_in):
+                return router.route(token_in, amount_in)
+        raise Exception("No route found")
+
+# Lending Protocol
+class LendingProtocol:
+    def __init__(self):
+        self.loans = {}
+
+    def lend(self, borrower: str, collateral: float, loan_amount: float):
+        if borrower not in self.loans:
+            self.loans[borrower] = {'collateral': 0, 'loan_amount': 0}
+        self.loans[borrower]['collateral'] += collateral
+        self.loans[borrower]['loan_amount'] += loan_amount
+
+    def repay(self, borrower: str, amount: float):
+        if borrower in self.loans:
+            self.loans[borrower]['loan_amount'] -= amount
+            if self.loans[borrower]['loan_amount'] <= 0:
+                del self.loans[borrower]
+
+# Vault Protocol
+class Vault:
+    def __init__(self, strategy: str):
+        self.strategy = strategy
+
+    def deposit(self, amount: float):
+        # Execute strategy to yield more assets
+        pass
+
+    def withdraw(self, amount: float):
+        # Execute strategy in reverse to return assets
+        pass
+
+# Staking Protocol
+class StakingProtocol:
+    def __init__(self):
+        self.stakers = {}
+
+    def stake(self, staker: str, amount: float):
+        if staker not in self.stakers:
+            self.stakers[staker] = 0
+        self.stakers[staker] += amount
+
+    def unstake(self, staker: str, amount: float):
+        if staker in self.stakers:
+            self.stakers[staker] -= amount
+            if self.stakers[staker] <= 0:
+                del self.stakers[staker]
+
+# Usage example
+oracle = Oracle()
+oracle.add_price_feed('ETH', 'https://api.example.com/eth_price')
+eth_price = oracle.get_price('ETH')
+
+dex = DEX()
+dex.add_liquidity_pool('ETH', 'USD', 1000, 200000)
+amount_out = dex.route_trade('ETH', 1)
+
+lending_protocol = LendingProtocol()
+lending_protocol.lend('user1', 100, 500)
+
+vault = Vault(strategy='compound')
+vault.deposit(100)
+
+staking_protocol = StakingProtocol()
+staking_protocol.stake('user2', 100)
+```

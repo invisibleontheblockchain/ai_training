@@ -1,0 +1,30 @@
+{
+  "emergency_status": "CRITICAL - IMMEDIATE ACTION REQUIRED",
+  "timestamp": "2025-06-21T01:17:46.268262",
+  "analysis_summary": {
+    "issue": {
+      "issue": "python_default",
+      "severity": "critical",
+      "description": "Model generates Python in 83.3% of cases",
+      "hypothesis": "Model has learned 'code generation = Python' association",
+      "urgency": "IMMEDIATE - This breaks all smart contract generation"
+    },
+    "total_tests": 12,
+    "python_percentage": 83.33333333333334,
+    "solidity_percentage": 0.0
+  },
+  "immediate_actions": [
+    "1. STOP all current training immediately",
+    "2. Load emergency Solidity examples into training data",
+    "3. Update ALL prompt templates to include language specification",
+    "4. Run validation tests before resuming training",
+    "5. Monitor next 10 test generations for language correctness",
+    "6. If still generating Python, escalate to manual intervention"
+  ],
+  "files_generated": [],
+  "next_steps": [
+    "Run validation tests within 1 hour",
+    "Monitor improvement in next training cycle",
+    "Generate progress report in 24 hours"
+  ]
+}

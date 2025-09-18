@@ -1,0 +1,210 @@
+{
+  "test_results": [
+    {
+      "test_id": "level_1_task_0_1750482400",
+      "prompt": "Create a basic price oracle contract that stores and retrieves asset prices with proper access control",
+      "response": "```python\nfrom typing import Dict\n\nclass PriceOracle:\n    def __init__(self):\n        self.prices: Dict[str, float] = {}\n        self.admins: set = {\"admin1\", \"admin2\"}\n\n    def add_price(self, asset: str, price: float) -> None:\n        if not self.is_admin():\n            raise PermissionError(\"Admin access required\")\n        self.prices[asset] = price\n\n    def get_price(self, asset: str) -> float:\n        return self.prices.get(asset, 0.0)\n\n    def is_admin(self) -> bool:\n        current_user = \"admin1\"  # Replace with actual user retrieval logic\n        return current_user in self.admins\n\n# Usage example\noracle = PriceOracle()\noracle.add_price(\"BTC\", 45000)\nprint(oracle.get_price(\"BTC\"))  # Output: 45000.0\n```",
+      "timestamp": "2025-06-21T00:06:40.778791",
+      "response_time": 3.182361602783203,
+      "response_length": 721,
+      "compilation_success": false,
+      "compilation_errors": [
+        "Could not extract contract name"
+      ],
+      "security_score": 0.0,
+      "security_issues": [],
+      "gas_efficiency": 0.0,
+      "integration_success": false,
+      "integration_errors": [],
+      "code_quality_score": 0.0,
+      "autonomy_score": 1.0,
+      "overall_score": 0.1,
+      "failure_categories": [
+        "compilation_failure"
+      ],
+      "improvement_suggestions": [
+        "Fix compilation errors - check syntax and imports"
+      ],
+      "training_data_generated": false
+    },
+    {
+      "test_id": "level_1_task_1_1750482408",
+      "prompt": "Implement an ERC20 token with mint and burn functionality",
+      "response": "```python\nfrom typing import Dict, Optional\n\nclass ERC20Token:\n    def __init__(self, name: str, symbol: str, total_supply: int):\n        self.name = name\n        self.symbol = symbol\n        self.total_supply = total_supply\n        self.balances: Dict[str, int] = {}\n        self.allowances: Dict[str, Dict[str, int]] = {}\n\n    def mint(self, account: str, amount: int) -> None:\n        if account not in self.balances:\n            self.balances[account] = 0\n        self.balances[account] += amount\n        self.total_supply += amount\n\n    def burn(self, account: str, amount: int) -> None:\n        if account not in self.balances or self.balances[account] < amount:\n            raise ValueError(\"Insufficient balance\")\n        self.balances[account] -= amount\n        self.total_supply -= amount\n\n    def transfer(self, from_account: str, to_account: str, amount: int) -> None:\n        if from_account not in self.balances or self.balances[from_account] < amount:\n            raise ValueError(\"Insufficient balance\")\n        if to_account not in self.balances:\n            self.balances[to_account] = 0\n        self.balances[from_account] -= amount\n        self.balances[to_account] += amount\n\n    def approve(self, owner: str, spender: str, amount: int) -> None:\n        if owner not in self.balances or self.balances[owner] < amount:\n            raise ValueError(\"Insufficient balance\")\n        if spender not in self.allowances:\n            self.allowances[spender] = {}\n        self.allowances[spender][owner] = amount\n\n    def transfer_from(self, owner: str, spender: str, to_account: str, amount: int) -> None:\n        if owner not in self.balances or self.balances[owner] < amount:\n            raise ValueError(\"Insufficient balance\")\n        if spender not in self.allowances or self.allowances[spender].get(owner, 0) < amount:\n            raise ValueError(\"Allowance exceeded\")\n        if to_account not in self.balances:\n            self.balances[to_account] = 0\n        self.balances[owner] -= amount\n        self.balances[to_account] += amount\n        self.allowances[spender][owner] -= amount\n\n    def balance_of(self, account: str) -> int:\n        return self.balances.get(account, 0)\n\n    def total_supply_(self) -> int:\n        return self.total_supply\n\n# Usage example\ntoken = ERC20Token(\"MyToken\", \"MTK\", 1000)\ntoken.mint(\"user1\", 500)\nprint(token.balance_of(\"user1\"))  # Output: 500\ntoken.transfer(\"user1\", \"user2\", 100)\nprint(token.balance_of(\"user1\"))  # Output: 400\nprint(token.balance_of(\"user2\"))  # Output: 100\ntoken.approve(\"user1\", \"spender\", 300)\ntoken.transfer_from(\"user1\", \"spender\", \"user3\", 200)\nprint(token.balance_of(\"user1\"))  # Output: 200\nprint(token.balance_of(\"user3\"))  # Output: 200\n```",
+      "timestamp": "2025-06-21T00:06:48.487019",
+      "response_time": 6.707612752914429,
+      "response_length": 2731,
+      "compilation_success": false,
+      "compilation_errors": [
+        "Could not extract contract name"
+      ],
+      "security_score": 0.0,
+      "security_issues": [],
+      "gas_efficiency": 0.0,
+      "integration_success": false,
+      "integration_errors": [],
+      "code_quality_score": 0.0,
+      "autonomy_score": 1.0,
+      "overall_score": 0.1,
+      "failure_categories": [
+        "compilation_failure"
+      ],
+      "improvement_suggestions": [
+        "Fix compilation errors - check syntax and imports"
+      ],
+      "training_data_generated": false
+    },
+    {
+      "test_id": "level_2_task_0_1750482413",
+      "prompt": "Create a lending pool contract with reentrancy protection and proper collateral management",
+      "response": "```python\nfrom typing import Dict, List, Tuple\nimport time\n\nclass LendingPool:\n    def __init__(self):\n        self.collateral = {}\n        self.principal = {}\n        self.interest_rate = 0.05\n        self.last_withdrawal_time = {}\n\n    def deposit_collateral(self, user: str, amount: float) -> None:\n        if user not in self.collateral:\n            self.collateral[user] = 0\n        self.collateral[user] += amount\n\n    def borrow_principal(self, user: str, amount: float) -> None:\n        if user not in self.principal:\n            self.principal[user] = 0\n        self.principal[user] += amount\n        self.last_withdrawal_time[user] = time.time()\n\n    def repay_principal(self, user: str, amount: float) -> None:\n        if user in self.principal and self.principal[user] >= amount:\n            self.principal[user] -= amount\n            self.collateral[user] -= amount * (1 + self.interest_rate)\n\n    def withdraw_collateral(self, user: str, amount: float) -> None:\n        if user in self.collateral and self.collateral[user] >= amount:\n            self.collateral[user] -= amount\n\n    def check_withdrawable_balance(self, user: str) -> bool:\n        current_time = time.time()\n        elapsed_time = current_time - self.last_withdrawal_time.get(user, 0)\n        return elapsed_time >= 3600  # Allow withdrawal every hour\n\n# Example usage\npool = LendingPool()\n\n# User A deposits collateral and borrows principal\npool.deposit_collateral(\"userA\", 1000)\npool.borrow_principal(\"userA\", 500)\n\n# User B deposits collateral and borrows principal\npool.deposit_collateral(\"userB\", 2000)\npool.borrow_principal(\"userB\", 1000)\n\n# User A repays principal\npool.repay_principal(\"userA\", 250)\n\n# User B withdraws collateral if allowed\nif pool.check_withdrawable_balance(\"userB\"):\n    pool.withdraw_collateral(\"userB\", 500)\n```",
+      "timestamp": "2025-06-21T00:06:53.897405",
+      "response_time": 4.409517765045166,
+      "response_length": 1821,
+      "compilation_success": false,
+      "compilation_errors": [
+        "Could not extract contract name"
+      ],
+      "security_score": 0.0,
+      "security_issues": [],
+      "gas_efficiency": 0.0,
+      "integration_success": false,
+      "integration_errors": [],
+      "code_quality_score": 0.0,
+      "autonomy_score": 1.0,
+      "overall_score": 0.1,
+      "failure_categories": [
+        "compilation_failure"
+      ],
+      "improvement_suggestions": [
+        "Fix compilation errors - check syntax and imports"
+      ],
+      "training_data_generated": false
+    },
+    {
+      "test_id": "level_2_task_1_1750482420",
+      "prompt": "Implement a simple DEX with MEV protection and slippage controls",
+      "response": "```python\nimport time\nfrom threading import Lock\n\nclass Order:\n    def __init__(self, order_id, side, price, quantity):\n        self.order_id = order_id\n        self.side = side  # 'buy' or 'sell'\n        self.price = price\n        self.quantity = quantity\n\nclass Trade:\n    def __init__(self, trade_id, order_id, price, quantity):\n        self.trade_id = trade_id\n        self.order_id = order_id\n        self.price = price\n        self.quantity = quantity\n\nclass DEX:\n    def __init__(self):\n        self.orders = []\n        self.trades = []\n        self.lock = Lock()\n\n    def add_order(self, order):\n        with self.lock:\n            self.orders.append(order)\n            self._match_orders()\n    \n    def _match_orders(self):\n        with self.lock:\n            orders_to_match = sorted(self.orders, key=lambda x: x.price if x.side == 'buy' else -x.price)\n            for i in range(len(orders_to_match)):\n                if orders_to_match[i].side == 'buy':\n                    for j in range(i + 1, len(orders_to_match)):\n                        if orders_to_match[j].side == 'sell':\n                            match_quantity = min(orders_to_match[i].quantity, orders_to_match[j].quantity)\n                            trade_price = (orders_to_match[i].price * orders_to_match[i].quantity + orders_to_match[j].price * orders_to_match[j].quantity) / match_quantity\n                            self.trades.append(Trade(len(self.trades), orders_to_match[i].order_id, trade_price, match_quantity))\n                            orders_to_match[i].quantity -= match_quantity\n                            orders_to_match[j].quantity -= match_quantity\n                            if orders_to_match[i].quantity == 0:\n                                self.orders.remove(orders_to_match[i])\n                            if orders_to_match[j].quantity == 0:\n                                self.orders.remove(orders_to_match[j])\n                            break\n\n    def get_orders(self):\n        return self.orders\n    \n    def get_trades(self):\n        return self.trades\n\n# Usage example\ndex = DEX()\norder1 = Order(1, 'buy', 100, 1)\norder2 = Order(2, 'sell', 95, 1)\ndex.add_order(order1)\ndex.add_order(order2)\n\nprint(dex.get_trades())\n```\n\nThis simple DEX implementation includes basic order matching logic with MEV (Maximal Extractable Value) protection and slippage controls. It uses a lock to ensure thread safety during order matching. The usage example demonstrates adding orders and retrieving trades.",
+      "timestamp": "2025-06-21T00:07:00.317772",
+      "response_time": 5.419228792190552,
+      "response_length": 2505,
+      "compilation_success": false,
+      "compilation_errors": [
+        "Could not extract contract name"
+      ],
+      "security_score": 0.0,
+      "security_issues": [],
+      "gas_efficiency": 0.0,
+      "integration_success": false,
+      "integration_errors": [],
+      "code_quality_score": 0.0,
+      "autonomy_score": 1.0,
+      "overall_score": 0.1,
+      "failure_categories": [
+        "compilation_failure"
+      ],
+      "improvement_suggestions": [
+        "Fix compilation errors - check syntax and imports"
+      ],
+      "training_data_generated": false
+    },
+    {
+      "test_id": "level_3_task_0_1750482426",
+      "prompt": "Create an oracle contract and DEX that uses the oracle for price feeds with proper integration",
+      "response": "```python\nimport sqlite3\n\n# Initialize SQLite database\nconn = sqlite3.connect('oracle_and_dex.db')\ncursor = conn.cursor()\n\n# Create tables for Oracle and DEX\ncursor.execute('''\nCREATE TABLE IF NOT EXISTS oracle (\n    asset_id INTEGER PRIMARY KEY,\n    price REAL\n)\n''')\n\ncursor.execute('''\nCREATE TABLE IF NOT EXISTS dex (\n    trade_id INTEGER PRIMARY KEY AUTOINCREMENT,\n    buyer_asset_id INTEGER,\n    seller_asset_id INTEGER,\n    amount_buyer INTEGER,\n    amount_seller INTEGER,\n    FOREIGN KEY (buyer_asset_id) REFERENCES oracle(asset_id),\n    FOREIGN KEY (seller_asset_id) REFERENCES oracle(asset_id)\n)\n''')\n\n# Insert initial prices into Oracle\ncursor.execute(\"INSERT INTO oracle (asset_id, price) VALUES (1, 0.5)\")\ncursor.execute(\"INSERT INTO oracle (asset_id, price) VALUES (2, 2.0)\")\n\nconn.commit()\n\n# Function to get price from Oracle\ndef get_price(asset_id):\n    cursor.execute(\"SELECT price FROM oracle WHERE asset_id = ?\", (asset_id,))\n    return cursor.fetchone()[0]\n\n# Function to add a trade to DEX\ndef add_trade(buyer_asset_id, seller_asset_id, amount_buyer, amount_seller):\n    if amount_buyer <= 0 or amount_seller <= 0:\n        raise ValueError(\"Amounts must be positive\")\n\n    buyer_price = get_price(buyer_asset_id)\n    seller_price = get_price(seller_asset_id)\n\n    if amount_buyer / buyer_price >= amount_seller / seller_price:\n        cursor.execute(\"INSERT INTO dex (buyer_asset_id, seller_asset_id, amount_buyer, amount_seller) VALUES (?, ?, ?, ?)\", (buyer_asset_id, seller_asset_id, amount_buyer, amount_seller))\n        conn.commit()\n        print(f\"Trade executed: {amount_buyer} units of asset {buyer_asset_id} for {amount_seller} units of asset {seller_asset_id}\")\n    else:\n        print(\"Trade not executed\")\n\n# Example usage\nadd_trade(1, 2, 50, 100)\nprint(f\"Current price of asset 1: {get_price(1)}\")\nprint(f\"Current price of asset 2: {get_price(2)}\")\n```",
+      "timestamp": "2025-06-21T00:07:06.180255",
+      "response_time": 4.8620781898498535,
+      "response_length": 1887,
+      "compilation_success": false,
+      "compilation_errors": [
+        "Could not extract contract name"
+      ],
+      "security_score": 0.0,
+      "security_issues": [],
+      "gas_efficiency": 0.0,
+      "integration_success": false,
+      "integration_errors": [],
+      "code_quality_score": 0.0,
+      "autonomy_score": 0.3,
+      "overall_score": 0.03,
+      "failure_categories": [
+        "compilation_failure"
+      ],
+      "improvement_suggestions": [
+        "Fix compilation errors - check syntax and imports"
+      ],
+      "training_data_generated": false
+    },
+    {
+      "test_id": "level_3_task_1_1750482434",
+      "prompt": "Build a lending protocol with automated liquidation using price oracles",
+      "response": "```python\nimport sqlite3\n\nclass LendingProtocol:\n    def __init__(self, db_path):\n        self.conn = sqlite3.connect(db_path)\n        self.cursor = self.conn.cursor()\n        self._initialize_database()\n\n    def _initialize_database(self):\n        self.cursor.execute('''\n            CREATE TABLE IF NOT EXISTS loans (\n                loan_id INTEGER PRIMARY KEY,\n                borrower TEXT NOT NULL,\n                amount REAL NOT NULL,\n                collateral_type TEXT NOT NULL,\n                collateral_amount REAL NOT NULL,\n                interest_rate REAL NOT NULL\n            )\n        ''')\n        self.conn.commit()\n\n    def issue_loan(self, borrower, amount, collateral_type, collateral_amount, interest_rate):\n        loan_id = self.cursor.lastrowid + 1\n        self.cursor.execute('''\n            INSERT INTO loans (loan_id, borrower, amount, collateral_type, collateral_amount, interest_rate)\n            VALUES (?, ?, ?, ?, ?, ?)\n        ''', (loan_id, borrower, amount, collateral_type, collateral_amount, interest_rate))\n        self.conn.commit()\n\n    def get_loan_info(self, loan_id):\n        self.cursor.execute('SELECT * FROM loans WHERE loan_id = ?', (loan_id,))\n        return self.cursor.fetchone()\n\n    def update_collateral_value(self, loan_id, new_value):\n        self.cursor.execute('UPDATE loans SET collateral_amount = ? WHERE loan_id = ?', (new_value, loan_id))\n        self.conn.commit()\n\n    def check_liquidation_threshold(self, loan_id, price_oracle):\n        loan_info = self.get_loan_info(loan_id)\n        if not loan_info:\n            raise ValueError(\"Loan does not exist\")\n\n        loan_amount = loan_info[2]\n        collateral_amount = loan_info[4]\n        interest_rate = loan_info[5]\n\n        collateral_value = price_oracle.get_collateral_value(collateral_type, collateral_amount)\n\n        if (collateral_value + loan_amount * interest_rate) < loan_amount:\n            self.liquidate_loan(loan_id)\n            return True\n        return False\n\n    def liquidate_loan(self, loan_id):\n        self.cursor.execute('DELETE FROM loans WHERE loan_id = ?', (loan_id,))\n        self.conn.commit()\n        print(f\"Loan {loan_id} has been liquidated\")\n\nclass PriceOracle:\n    def __init__(self):\n        self.collateral_prices = {\n            'BTC': 50000,\n            'ETH': 3000,\n            # Add more collateral types and prices\n        }\n\n    def get_collateral_value(self, collateral_type, amount):\n        if collateral_type in self.collateral_prices:\n            return self.collateral_prices[collateral_type] * amount\n        raise ValueError(\"Collateral type not found\")\n\n# Usage example\nif __name__ == \"__main__\":\n    db_path = 'lending_protocol.db'\n    lending_protocol = LendingProtocol(db_path)\n    price_oracle = PriceOracle()\n\n    # Issue a loan\n    lending_protocol.issue_loan('Alice', 1000, 'BTC', 0.05, 0.05)\n\n    # Update collateral value and check for liquidation\n    lending_protocol.update_collateral_value(1, 0.04)\n    if lending_protocol.check_liquidation_threshold(1, price_oracle):\n        print(\"Loan was liquidated\")\n    else:\n        print(\"Loan is safe\")\n\n    lending_protocol.conn.close()\n```",
+      "timestamp": "2025-06-21T00:07:14.718590",
+      "response_time": 7.537522077560425,
+      "response_length": 3169,
+      "compilation_success": false,
+      "compilation_errors": [
+        "Could not extract contract name"
+      ],
+      "security_score": 0.0,
+      "security_issues": [],
+      "gas_efficiency": 0.0,
+      "integration_success": false,
+      "integration_errors": [],
+      "code_quality_score": 0.0,
+      "autonomy_score": 0.3,
+      "overall_score": 0.03,
+      "failure_categories": [
+        "compilation_failure"
+      ],
+      "improvement_suggestions": [
+        "Fix compilation errors - check syntax and imports"
+      ],
+      "training_data_generated": false
+    }
+  ],
+  "learning_metrics": {
+    "session_id": "defi_learning_20250621_000634",
+    "start_time": "2025-06-21T00:06:34.766040",
+    "total_tests": 6,
+    "successful_tests": 0,
+    "avg_compilation_rate": 0.0,
+    "avg_security_score": 0.0,
+    "avg_gas_efficiency": 0.0,
+    "avg_integration_rate": 0.0,
+    "avg_overall_score": 0.07666666666666667,
+    "improvement_rate": -0.014000000000000002,
+    "training_sessions_triggered": 0,
+    "patterns_learned": null
+  },
+  "final_analysis": {
+    "session_summary": {
+      "session_id": "defi_learning_20250621_000634",
+      "duration_minutes": 0.6825624666666666,
+      "total_tests": 6,
+      "successful_tests": 0,
+      "success_rate": 0.0,
+      "average_score": 0.07666666666666667,
+      "improvement_trend": -0.04666666666666668
+    },
+    "performance_breakdown": {
+      "compilation_rate": 0.0,
+      "security_score": 0.0,
+      "gas_efficiency": 0.0,
+      "overall_score": 0.07666666666666667
+    },
+    "learning_progress": {
+      "training_sessions": 0,
+      "improvement_rate": -0.014000000000000002,
+      "training_queue_size": 0
+    },
+    "failure_analysis": {
+      "common_failures": {
+        "compilation_failure": 6
+      },
+      "improvement_areas": [
+        "Solidity syntax and compilation"
+      ]
+    }
+  }
+}

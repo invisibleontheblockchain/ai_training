@@ -1,0 +1,30 @@
+[build]
+builder = "dockerfile"
+dockerfilePath = "./Dockerfile.autonomous"
+
+[deploy]
+healthcheckPath = "/health"
+healthcheckTimeout = 300
+restartPolicyType = "on_failure"
+restartPolicyMaxRetries = 10
+
+# Railway will automatically provide these environment variables
+# when you add PostgreSQL and Redis services to your project
+# DATABASE_URL - from PostgreSQL service
+
+[services.source]
+repo = "."
+path = "."
+
+[services.build]
+builder = "dockerfile"
+dockerfilePath = "./Dockerfile.railway"
+
+[services.deploy]
+healthcheckPath = "/health"
+healthcheckTimeout = 300
+restartPolicyType = "on_failure"
+restartPolicyMaxRetries = 10
+
+# Environment variables will be set via Railway dashboard
+# DATABASE_URL, REDIS_URL will be provided by Railway's managed databases

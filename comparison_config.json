@@ -1,0 +1,18 @@
+{
+  "test_config": {
+    "phi2_finetuned_path": "c:/AI_Training/models/fine-tuned/phi2-optimized",
+    "cline_optimal_model": "cline-optimal:latest",
+    "warmup_iterations": 2,
+    "test_iterations": 5,
+    "max_new_tokens": 512,
+    "temperature": 0.7,
+    "results_dir": "c:/AI_Training/comparison_results"
+  },
+  "test_levels": [
+    "basic",
+    "intermediate",
+    "advanced",
+    "autonomous"
+  ],
+  "created": 1749141058.515314
+}

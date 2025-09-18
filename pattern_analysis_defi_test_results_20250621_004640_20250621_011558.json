@@ -1,0 +1,406 @@
+{
+  "source_file": "defi_test_results_20250621_004640.json",
+  "analysis_timestamp": "2025-06-21T01:15:58.269971",
+  "language_analysis": {
+    "language_distribution": {
+      "python": 6
+    },
+    "examples_by_language": {
+      "python": [
+        {
+          "prompt": "Create a basic price oracle contract that stores and retrieves asset prices with proper access contr...",
+          "response": "```python\nfrom typing import Dict\n\nclass PriceOracle:\n    def __init__(self):\n        self._prices: Dict[str, float] = {}\n        self.admins: set = {\"admin1\", \"admin2\"}\n\n    def set_price(self, asset...",
+          "test_id": "level_1_task_0_1750484767",
+          "confidence": 0.9807692307692307
+        },
+        {
+          "prompt": "Implement an ERC20 token with mint and burn functionality...",
+          "response": "```python\nfrom typing import Dict\n\nclass ERC20Token:\n    def __init__(self, name: str, symbol: str, total_supply: int):\n        self.name = name\n        self.symbol = symbol\n        self.total_supply ...",
+          "test_id": "level_1_task_1_1750484775",
+          "confidence": 0.9807692307692307
+        },
+        {
+          "prompt": "Create a lending pool contract with reentrancy protection and proper collateral management...",
+          "response": "```python\nimport sqlite3\n\nclass LendingPool:\n    def __init__(self, db_name):\n        self.conn = sqlite3.connect(db_name)\n        self.cursor = self.conn.cursor()\n        self.create_tables()\n\n    de...",
+          "test_id": "level_2_task_0_1750484781",
+          "confidence": 0.975
+        }
+      ]
+    },
+    "total_tests": 6,
+    "primary_issue": {
+      "issue": "python_default",
+      "severity": "critical",
+      "description": "Model generates Python in 100.0% of cases",
+      "hypothesis": "Model has learned 'code generation = Python' association",
+      "urgency": "IMMEDIATE - This breaks all smart contract generation"
+    }
+  },
+  "error_patterns": {
+    "categories": {
+      "compilation_failure": [
+        {
+          "test_id": "level_1_task_0_1750484767",
+          "prompt_snippet": "Create a basic price oracle contract that stores a...",
+          "error": "Could not extract contract name"
+        },
+        {
+          "test_id": "level_1_task_1_1750484775",
+          "prompt_snippet": "Implement an ERC20 token with mint and burn functi...",
+          "error": "Could not extract contract name"
+        },
+        {
+          "test_id": "level_2_task_0_1750484781",
+          "prompt_snippet": "Create a lending pool contract with reentrancy pro...",
+          "error": "Could not extract contract name"
+        },
+        {
+          "test_id": "level_2_task_1_1750484787",
+          "prompt_snippet": "Implement a simple DEX with MEV protection and sli...",
+          "error": "Could not extract contract name"
+        },
+        {
+          "test_id": "level_3_task_0_1750484791",
+          "prompt_snippet": "Create an oracle contract and DEX that uses the or...",
+          "error": "Could not extract contract name"
+        },
+        {
+          "test_id": "level_3_task_1_1750484799",
+          "prompt_snippet": "Build a lending protocol with automated liquidatio...",
+          "error": "Could not extract contract name"
+        }
+      ],
+      "security_issues": [
+        {
+          "test_id": "level_1_task_0_1750484767",
+          "prompt_snippet": "Create a basic price oracle contract that stores a...",
+          "error": "Could not extract contract name"
+        },
+        {
+          "test_id": "level_1_task_1_1750484775",
+          "prompt_snippet": "Implement an ERC20 token with mint and burn functi...",
+          "error": "Could not extract contract name"
+        },
+        {
+          "test_id": "level_2_task_0_1750484781",
+          "prompt_snippet": "Create a lending pool contract with reentrancy pro...",
+          "error": "Could not extract contract name"
+        },
+        {
+          "test_id": "level_2_task_1_1750484787",
+          "prompt_snippet": "Implement a simple DEX with MEV protection and sli...",
+          "error": "Could not extract contract name"
+        },
+        {
+          "test_id": "level_3_task_0_1750484791",
+          "prompt_snippet": "Create an oracle contract and DEX that uses the or...",
+          "error": "Could not extract contract name"
+        },
+        {
+          "test_id": "level_3_task_1_1750484799",
+          "prompt_snippet": "Build a lending protocol with automated liquidatio...",
+          "error": "Could not extract contract name"
+        }
+      ],
+      "gas_efficiency": [
+        {
+          "test_id": "level_1_task_0_1750484767",
+          "prompt_snippet": "Create a basic price oracle contract that stores a...",
+          "error": "Could not extract contract name"
+        },
+        {
+          "test_id": "level_1_task_1_1750484775",
+          "prompt_snippet": "Implement an ERC20 token with mint and burn functi...",
+          "error": "Could not extract contract name"
+        },
+        {
+          "test_id": "level_2_task_0_1750484781",
+          "prompt_snippet": "Create a lending pool contract with reentrancy pro...",
+          "error": "Could not extract contract name"
+        },
+        {
+          "test_id": "level_2_task_1_1750484787",
+          "prompt_snippet": "Implement a simple DEX with MEV protection and sli...",
+          "error": "Could not extract contract name"
+        },
+        {
+          "test_id": "level_3_task_0_1750484791",
+          "prompt_snippet": "Create an oracle contract and DEX that uses the or...",
+          "error": "Could not extract contract name"
+        },
+        {
+          "test_id": "level_3_task_1_1750484799",
+          "prompt_snippet": "Build a lending protocol with automated liquidatio...",
+          "error": "Could not extract contract name"
+        }
+      ],
+      "integration_failure": [
+        {
+          "test_id": "level_1_task_0_1750484767",
+          "prompt_snippet": "Create a basic price oracle contract that stores a...",
+          "error": "Could not extract contract name"
+        },
+        {
+          "test_id": "level_1_task_1_1750484775",
+          "prompt_snippet": "Implement an ERC20 token with mint and burn functi...",
+          "error": "Could not extract contract name"
+        },
+        {
+          "test_id": "level_2_task_0_1750484781",
+          "prompt_snippet": "Create a lending pool contract with reentrancy pro...",
+          "error": "Could not extract contract name"
+        },
+        {
+          "test_id": "level_2_task_1_1750484787",
+          "prompt_snippet": "Implement a simple DEX with MEV protection and sli...",
+          "error": "Could not extract contract name"
+        },
+        {
+          "test_id": "level_3_task_0_1750484791",
+          "prompt_snippet": "Create an oracle contract and DEX that uses the or...",
+          "error": "Could not extract contract name"
+        },
+        {
+          "test_id": "level_3_task_1_1750484799",
+          "prompt_snippet": "Build a lending protocol with automated liquidatio...",
+          "error": "Could not extract contract name"
+        }
+      ],
+      "language_mismatch": [
+        {
+          "test_id": "level_1_task_0_1750484767",
+          "prompt_snippet": "Create a basic price oracle contract that stores a...",
+          "error": "Could not extract contract name"
+        },
+        {
+          "test_id": "level_1_task_1_1750484775",
+          "prompt_snippet": "Implement an ERC20 token with mint and burn functi...",
+          "error": "Could not extract contract name"
+        },
+        {
+          "test_id": "level_2_task_0_1750484781",
+          "prompt_snippet": "Create a lending pool contract with reentrancy pro...",
+          "error": "Could not extract contract name"
+        },
+        {
+          "test_id": "level_2_task_1_1750484787",
+          "prompt_snippet": "Implement a simple DEX with MEV protection and sli...",
+          "error": "Could not extract contract name"
+        },
+        {
+          "test_id": "level_3_task_0_1750484791",
+          "prompt_snippet": "Create an oracle contract and DEX that uses the or...",
+          "error": "Could not extract contract name"
+        },
+        {
+          "test_id": "level_3_task_1_1750484799",
+          "prompt_snippet": "Build a lending protocol with automated liquidatio...",
+          "error": "Could not extract contract name"
+        }
+      ]
+    },
+    "top_patterns": [
+      [
+        "no_contract_detected",
+        6
+      ]
+    ],
+    "total_errors": 30,
+    "critical_patterns": [
+      "no_contract_detected"
+    ]
+  },
+  "prompt_response_mapping": {
+    "feature_analysis": {
+      "has_technical_spec": 0.0,
+      "mentions_defi": 0.0,
+      "has_implementation_verb": 0.0,
+      "starts_with_verb": 0.0
+    },
+    "best_prompt_features": [],
+    "worst_prompt_features": [
+      {
+        "feature": "has_technical_spec",
+        "frequency": 0.6666666666666666
+      },
+      {
+        "feature": "mentions_defi",
+        "frequency": 1.0
+      },
+      {
+        "feature": "has_implementation_verb",
+        "frequency": 1.0
+      },
+      {
+        "feature": "starts_with_verb",
+        "frequency": 1.0
+      }
+    ],
+    "prompt_optimization_suggestions": [
+      "Start prompts with 'Create a Solidity contract that...'",
+      "Add '// SPDX-License-Identifier: MIT' to expected outputs",
+      "Include 'pragma solidity ^0.8.0;' in examples",
+      "Use 'smart contract' instead of just 'contract' for clarity"
+    ]
+  },
+  "systematic_failures": {
+    "systematic_patterns": [
+      {
+        "pattern": "python|compilation_failure|gas_efficiency|integration_failure|language_mismatch|security_issues",
+        "frequency": 6,
+        "examples": [
+          "level_1_task_0_1750484767",
+          "level_1_task_1_1750484775",
+          "level_2_task_0_1750484781"
+        ],
+        "severity": 10,
+        "description": "Model consistently generates Python code when Solidity is requested"
+      }
+    ],
+    "total_unique_failures": 1,
+    "most_common_failure": {
+      "pattern": "python|compilation_failure|gas_efficiency|integration_failure|language_mismatch|security_issues",
+      "frequency": 6,
+      "examples": [
+        "level_1_task_0_1750484767",
+        "level_1_task_1_1750484775",
+        "level_2_task_0_1750484781"
+      ],
+      "severity": 10,
+      "description": "Model consistently generates Python code when Solidity is requested"
+    },
+    "critical_patterns": [
+      {
+        "pattern": "python|compilation_failure|gas_efficiency|integration_failure|language_mismatch|security_issues",
+        "frequency": 6,
+        "examples": [
+          "level_1_task_0_1750484767",
+          "level_1_task_1_1750484775",
+          "level_2_task_0_1750484781"
+        ],
+        "severity": 10,
+        "description": "Model consistently generates Python code when Solidity is requested"
+      }
+    ]
+  },
+  "model_confusion_analysis": {
+    "confusion_distribution": {
+      "language_mixing": 0,
+      "wrong_syntax_right_concepts": 4,
+      "complete_language_swap": 0,
+      "no_code_generated": 0,
+      "hallucinated_syntax": 0
+    },
+    "examples": {
+      "wrong_syntax_right_concepts": [
+        {
+          "prompt": "Create a basic price oracle contract that stores and retrieves asset prices with proper access contr...",
+          "response": "```python\nfrom typing import Dict\n\nclass PriceOracle:\n    def __init__(self):\n        self._prices: Dict[str, float] = {}\n        self.admins: set = {...",
+          "test_id": "level_1_task_0_1750484767"
+        },
+        {
+          "prompt": "Implement an ERC20 token with mint and burn functionality...",
+          "response": "```python\nfrom typing import Dict\n\nclass ERC20Token:\n    def __init__(self, name: str, symbol: str, total_supply: int):\n        self.name = name\n     ...",
+          "test_id": "level_1_task_1_1750484775"
+        }
+      ]
+    },
+    "primary_confusion": "wrong_syntax_right_concepts",
+    "confusion_analysis": {
+      "cause": "concept_syntax_disconnect",
+      "confidence": "high",
+      "description": "Model understands DeFi concepts but applies Python syntax",
+      "fix_priority": "HIGH"
+    }
+  },
+  "defi_specific_analysis": {
+    "concept_breakdown": {
+      "oracle": {
+        "total_tests": 3,
+        "solidity_generation": 0,
+        "python_generation": 3,
+        "solidity_rate": 0.0,
+        "python_rate": 1.0
+      },
+      "dex": {
+        "total_tests": 2,
+        "solidity_generation": 0,
+        "python_generation": 2,
+        "solidity_rate": 0.0,
+        "python_rate": 1.0
+      },
+      "lending": {
+        "total_tests": 2,
+        "solidity_generation": 0,
+        "python_generation": 2,
+        "solidity_rate": 0.0,
+        "python_rate": 1.0
+      },
+      "token": {
+        "total_tests": 1,
+        "solidity_generation": 0,
+        "python_generation": 1,
+        "solidity_rate": 0.0,
+        "python_rate": 1.0
+      },
+      "erc20": {
+        "total_tests": 1,
+        "solidity_generation": 0,
+        "python_generation": 1,
+        "solidity_rate": 0.0,
+        "python_rate": 1.0
+      }
+    },
+    "most_problematic_concept": "oracle",
+    "defi_specific_recommendations": [
+      "Critical: ORACLE prompts generate Python 100% of time - need immediate Solidity examples",
+      "Critical: DEX prompts generate Python 100% of time - need immediate Solidity examples",
+      "Critical: LENDING prompts generate Python 100% of time - need immediate Solidity examples",
+      "Critical: TOKEN prompts generate Python 100% of time - need immediate Solidity examples",
+      "Critical: ERC20 prompts generate Python 100% of time - need immediate Solidity examples",
+      "Create DeFi-specific Solidity templates for each concept",
+      "Use working smart contract examples in few-shot prompting",
+      "Add explicit 'Create a Solidity smart contract' prefix to all DeFi prompts",
+      "Include pragma solidity statement in all expected outputs"
+    ]
+  },
+  "recommendations": [
+    {
+      "priority": "CRITICAL",
+      "action": "Break Python Association - EMERGENCY FIX",
+      "steps": [
+        "IMMEDIATE: Inject 100+ working Solidity contract examples",
+        "Add explicit 'Language: Solidity' to ALL prompts",
+        "Use few-shot prompting with 3-5 Solidity examples per prompt",
+        "Add negative examples: 'This should NOT be Python code'",
+        "Implement pre-generation language priming: 'Generate Solidity smart contract code:'"
+      ],
+      "expected_impact": "Should see 50%+ improvement in 5-10 iterations",
+      "urgency": "FIX TODAY - System completely broken for smart contracts"
+    },
+    {
+      "priority": "HIGH",
+      "action": "Address Critical Pattern: Model consistently generates Python code when Solidity is requested",
+      "steps": [
+        "This pattern occurs in 6 tests (severity: 10/10)",
+        "Create targeted training examples for this specific failure",
+        "Implement pattern-specific prompt engineering",
+        "Add validation to prevent this pattern recurring",
+        "Focus on test IDs: level_1_task_0_1750484767, level_1_task_1_1750484775, level_2_task_0_1750484781"
+      ],
+      "expected_impact": "Eliminate 6 recurring failures"
+    },
+    {
+      "priority": "HIGH",
+      "action": "Fix ORACLE Concept Generation",
+      "steps": [
+        "oracle prompts have severe Python generation issues",
+        "Create oracle-specific Solidity templates",
+        "Add working oracle smart contract examples to training",
+        "Use concept-specific prompt prefixes for oracle",
+        "Test oracle generation separately until fixed"
+      ],
+      "expected_impact": "Fix oracle smart contract generation"
+    }
+  ]
+}

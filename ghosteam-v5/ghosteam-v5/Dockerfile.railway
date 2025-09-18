@@ -1,0 +1,57 @@
+# Railway deployment Dockerfile - Simplified for free tier
+FROM python:3.10-slim
+
+# Set working directory
+WORKDIR /app
+
+# Install system dependencies (including feast requirements)
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    curl \
+    gcc \
+    g++ \
+    libpq-dev \
+    pkg-config \
+    libssl-dev \
+    libffi-dev \
+    libxml2-dev \
+    libxslt-dev \
+    libbz2-dev \
+    zlib1g-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy requirements first for better caching
+COPY requirements.railway.minimal.txt ./requirements.txt
+
+# Upgrade pip and install wheel for faster builds
+RUN pip install --no-cache-dir --upgrade pip wheel setuptools
+
+# Install requirements with optimizations for Railway
+RUN pip install --no-cache-dir --no-compile -r requirements.txt
+
+# Copy source code
+COPY src/ ./src/
+COPY data/ ./data/
+
+# Create necessary directories
+RUN mkdir -p data/models data/features data/processed mlruns
+
+# Set environment variables
+ENV PYTHONPATH=/app
+ENV PYTHONUNBUFFERED=1
+ENV DATABASE_URL=${DATABASE_URL}
+ENV REDIS_URL=${REDIS_URL}
+ENV MLFLOW_TRACKING_URI=${MLFLOW_TRACKING_URI}
+ENV SECRET_KEY=${SECRET_KEY:-default-secret-key}
+ENV DEBUG=false
+ENV ENVIRONMENT=production
+
+# Expose port
+EXPOSE 8080
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+    CMD curl -f http://localhost:8080/health || exit 1
+
+# Start the application (using minimal app for reliable deployment)
+CMD ["python", "-m", "uvicorn", "src.minimal_app:app", "--host", "0.0.0.0", "--port", "8080", "--workers", "1"]

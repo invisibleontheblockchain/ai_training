@@ -1,0 +1,79 @@
+{
+  "batch_timestamp": "2025-06-21T01:15:58.229211",
+  "total_files": 5,
+  "file_analyses": {
+    "defi_test_results_20250621_000715.json": {
+      "total_tests": 6,
+      "python_count": 6,
+      "solidity_count": 0,
+      "mixed_count": 0,
+      "python_percentage": 100.0,
+      "solidity_percentage": 0.0,
+      "primary_issue": "python_default",
+      "severity": "critical"
+    },
+    "defi_test_results_20250621_004640.json": {
+      "total_tests": 6,
+      "python_count": 6,
+      "solidity_count": 0,
+      "mixed_count": 0,
+      "python_percentage": 100.0,
+      "solidity_percentage": 0.0,
+      "primary_issue": "python_default",
+      "severity": "critical"
+    },
+    "defi_test_results_20250621_004856.json": {
+      "total_tests": 6,
+      "python_count": 5,
+      "solidity_count": 0,
+      "mixed_count": 1,
+      "python_percentage": 83.33333333333334,
+      "solidity_percentage": 0.0,
+      "primary_issue": "python_default",
+      "severity": "critical"
+    },
+    "defi_test_results_20250621_004934.json": {
+      "total_tests": 12,
+      "python_count": 9,
+      "solidity_count": 0,
+      "mixed_count": 3,
+      "python_percentage": 75.0,
+      "solidity_percentage": 0.0,
+      "primary_issue": "low_solidity_generation",
+      "severity": "high"
+    },
+    "defi_test_results_20250621_005010.json": {
+      "total_tests": 18,
+      "python_count": 13,
+      "solidity_count": 0,
+      "mixed_count": 5,
+      "python_percentage": 72.22222222222221,
+      "solidity_percentage": 0.0,
+      "primary_issue": "low_solidity_generation",
+      "severity": "high"
+    }
+  },
+  "aggregate_stats": {
+    "total_tests": 48,
+    "total_python_generated": 39,
+    "total_solidity_generated": 0,
+    "total_mixed_generated": 9,
+    "critical_issues": [
+      {
+        "file": "defi_test_results_20250621_000715.json",
+        "issue": "Model generates Python in 100.0% of cases",
+        "urgency": "IMMEDIATE - This breaks all smart contract generation"
+      },
+      {
+        "file": "defi_test_results_20250621_004640.json",
+        "issue": "Model generates Python in 100.0% of cases",
+        "urgency": "IMMEDIATE - This breaks all smart contract generation"
+      },
+      {
+        "file": "defi_test_results_20250621_004856.json",
+        "issue": "Model generates Python in 83.3% of cases",
+        "urgency": "IMMEDIATE - This breaks all smart contract generation"
+      }
+    ]
+  }
+}
