@@ -95,17 +95,23 @@ def start_telegram_bot():
 def initialize_agi_system():
     """Initialize the master AGI system"""
     try:
-        from master_agi_system import MasterAGISystem
-        logger.info("Initializing Master AGI System...")
-        
-        # Create system instance
-        master_system = MasterAGISystem()
-        
-        # Perform initialization
-        master_system.initialize()
-        
-        logger.info("✅ Master AGI System initialized successfully")
-        return master_system
+        # Try to import master system, but don't fail if missing
+        try:
+            from master_agi_system import MasterAGISystem
+            logger.info("Initializing Master AGI System...")
+            
+            # Create system instance
+            master_system = MasterAGISystem()
+            
+            # Perform initialization
+            master_system.initialize()
+            
+            logger.info("✅ Master AGI System initialized successfully")
+            return master_system
+        except ImportError as ie:
+            logger.warning(f"Master AGI System not available: {ie}")
+            logger.info("Running in minimal API mode")
+            return None
         
     except Exception as e:
         logger.error(f"Failed to initialize AGI system: {e}")
